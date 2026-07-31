@@ -22,7 +22,10 @@ const FormSchema = z.object({
   }),
   date: z.string(),
 });
-
+  export async function deleteInvoice(id: string) {
+  await sql`DELETE FROM invoices WHERE id = ${id}`;
+  revalidatePath('/dashboard/invoices');
+}
 export type State = {
   errors?: {
     customerId?: string[];
@@ -123,4 +126,5 @@ export async function authenticate(
     }
     throw error;
   }
+
 }
